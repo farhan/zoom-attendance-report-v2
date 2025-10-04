@@ -36,10 +36,18 @@ This Python application analyzes Zoom meeting attendance data and generates comp
 pip install -r requirements.txt
 ```
 
+3. (Optional) Create a `.env` file to specify your input file:
+
+```bash
+cp .env.example .env
+# Edit .env and set INPUT_FILE_PATH to your CSV file location
+```
+
 ## Usage
 
 1. Place your Zoom attendance CSV file in the `input/` directory
-2. Run the script:
+2. (Optional) Set the input file path in `.env` file using `INPUT_FILE_PATH` variable
+3. Run the script:
 
 ```bash
 python main.py
@@ -76,11 +84,23 @@ The input CSV file should follow Zoom's meeting details export format:
 
 ## Customization
 
-To analyze a different CSV file, edit the `input_file` variable in `main.py`:
+### Input File Configuration
 
-```python
-input_file = 'input/your_file_name.csv'
-```
+You can specify the input file in two ways:
+
+1. **Using .env file (Recommended)**: Create a `.env` file and set:
+   ```
+   INPUT_FILE_PATH=input/your_file_name.csv
+   ```
+
+2. **Direct modification**: Edit the `input_file` variable in `main.py`:
+   ```python
+   input_file = os.getenv('INPUT_FILE_PATH', 'input/your_file_name.csv')
+   ```
+
+If no `.env` file is found, the script will use the template file from `sample-input/` directory.
+
+### Output File Configuration
 
 To change the output filename, edit the `output_file` variable in `main.py`:
 

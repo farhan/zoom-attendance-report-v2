@@ -2,6 +2,7 @@
 Main script to process Zoom attendance data and generate reports.
 """
 import sys
+import os
 from csv_reader import ZoomCSVReader
 from attendance_calculator import AttendanceCalculator
 from report_generator import ReportGenerator
@@ -11,11 +12,18 @@ def main():
     """
     Main function to process Zoom attendance CSV and generate reports.
     """
-    # Input CSV file
-    input_file = 'input/meetinglistdetails_2025_09_01_2025_09_30.csv'
+    # Load environment variables
+    from dotenv import load_dotenv
+    load_dotenv()
+    
+    # Input CSV file - use environment variable if available, otherwise use template
+    input_file = os.getenv('INPUT_FILE_PATH', 'sample-input/meetinglistdetails_template.csv')
     
     # Output report file (Excel format)
-    output_file = 'output/attendance_report_september_2025.xlsx'
+    output_file = 'output/september_2025_report/attendance_report_september_2025.xlsx'
+    
+    # Create output directory if it doesn't exist
+    os.makedirs(os.path.dirname(output_file), exist_ok=True)
     
     print("=" * 60)
     print("Zoom Attendance Report Generator")
