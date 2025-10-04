@@ -98,8 +98,11 @@ def main():
     from dotenv import load_dotenv
     load_dotenv()
     
-    # Input folder - use environment variable if available, otherwise use default
-    input_folder = os.getenv('INPUT_FOLDER_PATH', 'input/')
+    # Input folder - use environment variable if available, otherwise use sample-input
+    input_folder = os.getenv('INPUT_FOLDER_PATH', 'sample-input')
+    
+    # Ensure folder path doesn't have trailing slash for consistency
+    input_folder = input_folder.rstrip('/')
     
     print("=" * 60)
     print("Zoom Attendance Report Generator")

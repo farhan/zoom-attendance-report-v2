@@ -39,14 +39,15 @@ pip install -r requirements.txt
 3. (Optional) Create a `.env` file to specify your input folder:
 
 ```bash
-# Create .env file and set INPUT_FOLDER_PATH
-echo "INPUT_FOLDER_PATH=input/" > .env
+# Create .env file and set INPUT_FOLDER_PATH to your actual data folder
+echo "INPUT_FOLDER_PATH=input" > .env
 ```
 
 ## Usage
 
-1. Place your Zoom attendance CSV file(s) in the `input/` directory
-2. (Optional) Set the input folder path in `.env` file using `INPUT_FOLDER_PATH` variable (defaults to `input/`)
+1. Place your Zoom attendance CSV file(s) in your desired folder (e.g., `input/`)
+2. (Optional) Set the input folder path in `.env` file using `INPUT_FOLDER_PATH` variable
+   - If not set, defaults to `sample-input/` folder
 3. Run the script:
 
 ```bash
@@ -92,15 +93,15 @@ You can specify the input folder in two ways:
 
 1. **Using .env file (Recommended)**: Create a `.env` file and set:
    ```
-   INPUT_FOLDER_PATH=input/
+   INPUT_FOLDER_PATH=input
    ```
 
 2. **Direct modification**: Edit the `input_folder` variable in `main.py`:
    ```python
-   input_folder = os.getenv('INPUT_FOLDER_PATH', 'input/')
+   input_folder = os.getenv('INPUT_FOLDER_PATH', 'sample-input')
    ```
 
-If no `.env` file is found, the script defaults to the `input/` directory.
+If no `.env` file is found or `INPUT_FOLDER_PATH` is not set, the script defaults to the `sample-input/` directory which contains template files.
 
 ### Batch Processing
 
