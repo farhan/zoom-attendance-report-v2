@@ -4,6 +4,7 @@ Main script to process Zoom attendance data and generate reports.
 import sys
 import os
 import glob
+import shutil
 from csv_reader import ZoomCSVReader
 from attendance_calculator import AttendanceCalculator
 from report_generator import ReportGenerator
@@ -43,6 +44,12 @@ def process_csv_file(input_file: str, output_base_dir: str = 'output'):
         # Create output directory for this report
         output_dir = os.path.join(output_base_dir, f"{report_name}_report")
         os.makedirs(output_dir, exist_ok=True)
+        
+        # Create input_file subfolder and copy the input CSV file
+        input_file_dir = os.path.join(output_dir, "input_file")
+        os.makedirs(input_file_dir, exist_ok=True)
+        input_file_copy = os.path.join(input_file_dir, filename)
+        shutil.copy2(input_file, input_file_copy)
         
         # Output report file (Excel format)
         output_file = os.path.join(output_dir, f"attendance_report_{report_name}.xlsx")
