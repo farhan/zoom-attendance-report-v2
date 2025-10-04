@@ -27,6 +27,21 @@ This Python application analyzes Zoom meeting attendance data and generates comp
     └── *.csv
 ```
 
+## Prerequisites
+
+### Getting Zoom Meeting Data
+
+Before using this tool, you need to download your Zoom meeting attendance reports:
+
+1. Go to [Zoom Reports](https://zoom.us/account/report/meeting) in your Zoom account
+2. Navigate to **Reports** → **Usage Reports** → **Meeting**
+3. Select the date range for your meetings
+4. Click on a meeting and select **Generate Report** or **Participants Report**
+5. Download the CSV file (format: `meetinglistdetails_YYYY_MM_DD_YYYY_MM_DD.csv`)
+6. Place the downloaded CSV file(s) in your input folder
+
+> **Note:** You need admin or owner privileges to access meeting reports in Zoom.
+
 ## Installation
 
 1. Ensure you have Python 3.8 or higher installed
