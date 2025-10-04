@@ -12,10 +12,10 @@ def main():
     Main function to process Zoom attendance CSV and generate reports.
     """
     # Input CSV file
-    input_file = 'meetinglistdetails_2025_09_01_2025_09_30.csv'
+    input_file = 'input/meetinglistdetails_2025_09_01_2025_09_30.csv'
     
     # Output report file (Excel format)
-    output_file = 'attendance_report_september_2025.xlsx'
+    output_file = 'output/attendance_report_september_2025.xlsx'
     
     print("=" * 60)
     print("Zoom Attendance Report Generator")

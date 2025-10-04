@@ -20,7 +20,11 @@ This Python application analyzes Zoom meeting attendance data and generates comp
 ├── attendance_calculator.py   # Attendance calculation logic
 ├── report_generator.py        # Report generation logic
 ├── requirements.txt           # Python dependencies
-└── meetinglistdetails_*.csv   # Input CSV file(s)
+├── input/                     # Input CSV file(s)
+│   └── meetinglistdetails_*.csv
+└── output/                    # Generated reports
+    ├── *.xlsx
+    └── *.csv
 ```
 
 ## Installation
@@ -34,14 +38,14 @@ pip install -r requirements.txt
 
 ## Usage
 
-1. Place your Zoom attendance CSV file in the project directory
+1. Place your Zoom attendance CSV file in the `input/` directory
 2. Run the script:
 
 ```bash
 python main.py
 ```
 
-3. The script will generate:
+3. The script will generate reports in the `output/` directory:
    - `attendance_report_september_2025.xlsx` - Excel file with two sheets:
      - **Individual Attendance**: Sorted list of all participants with their attendance percentages
      - **Team Summary**: Overall team statistics
@@ -75,18 +79,21 @@ The input CSV file should follow Zoom's meeting details export format:
 To analyze a different CSV file, edit the `input_file` variable in `main.py`:
 
 ```python
-input_file = 'your_file_name.csv'
+input_file = 'input/your_file_name.csv'
 ```
 
 To change the output filename, edit the `output_file` variable in `main.py`:
 
 ```python
-output_file = 'your_report_name.xlsx'
+output_file = 'output/your_report_name.xlsx'
 ```
 
 ## Notes
 
+- **Meeting Validation**: A meeting is only considered valid if at least 2 real participants attended
 - Bot participants (e.g., Textalize AI, bot@textalize.ai) are automatically excluded from attendance calculations
 - Participants are identified by email when available, otherwise by name
 - Attendance percentage is calculated based on actual meetings attended vs. total meetings held
+- Input files should be placed in the `input/` directory
+- Generated reports will be saved in the `output/` directory
 

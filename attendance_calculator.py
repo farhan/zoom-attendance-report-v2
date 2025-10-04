@@ -43,8 +43,8 @@ class AttendanceCalculator:
             # Get unique participants in this meeting (excluding bots)
             unique_participants = meeting.get_unique_participants()
             
-            # Only count this meeting if it has real participants
-            if unique_participants:
+            # Only count this meeting if it has at least 2 real participants
+            if len(unique_participants) >= 2:
                 for participant in meeting.participants:
                     identifier = participant.email if participant.email else participant.name
                     
@@ -97,9 +97,10 @@ class AttendanceCalculator:
         else:
             avg_attendance = 0
         
-        # Calculate average participants per meeting
+        # Calculate average participants per meeting (only count meetings with 2+ participants)
         total_participant_count = sum(
             len(meeting.get_unique_participants()) for meeting in self.meetings
+            if len(meeting.get_unique_participants()) >= 2
         )
         avg_participants = total_participant_count / total_meetings if total_meetings > 0 else 0
         
@@ -112,12 +113,12 @@ class AttendanceCalculator:
     
     def _count_real_meetings(self) -> int:
         """
-        Counts meetings that have at least one real participant (not just bots).
+        Counts meetings that have at least 2 real participants (not just bots).
         """
         count = 0
         for meeting in self.meetings:
             unique_participants = meeting.get_unique_participants()
-            if unique_participants:
+            if len(unique_participants) >= 2:
                 count += 1
         return count
     
