@@ -36,29 +36,31 @@ This Python application analyzes Zoom meeting attendance data and generates comp
 pip install -r requirements.txt
 ```
 
-3. (Optional) Create a `.env` file to specify your input file:
+3. (Optional) Create a `.env` file to specify your input folder:
 
 ```bash
-cp .env.example .env
-# Edit .env and set INPUT_FILE_PATH to your CSV file location
+# Create .env file and set INPUT_FOLDER_PATH
+echo "INPUT_FOLDER_PATH=input/" > .env
 ```
 
 ## Usage
 
-1. Place your Zoom attendance CSV file in the `input/` directory
-2. (Optional) Set the input file path in `.env` file using `INPUT_FILE_PATH` variable
+1. Place your Zoom attendance CSV file(s) in the `input/` directory
+2. (Optional) Set the input folder path in `.env` file using `INPUT_FOLDER_PATH` variable (defaults to `input/`)
 3. Run the script:
 
 ```bash
 python main.py
 ```
 
-3. The script will generate reports in the `output/` directory:
-   - `attendance_report_september_2025.xlsx` - Excel file with two sheets:
-     - **Individual Attendance**: Sorted list of all participants with their attendance percentages
-     - **Team Summary**: Overall team statistics
-   - `attendance_report_september_2025_individual.csv` - Individual attendance data in CSV format
-   - `attendance_report_september_2025_team.csv` - Team summary in CSV format
+4. The script will process all CSV files in the input folder and generate reports in the `output/` directory:
+   - Each CSV file will create its own report folder named `{month}_{year}_report/`
+   - Inside each folder:
+     - `attendance_report_{month}_{year}.xlsx` - Excel file with two sheets:
+       - **Individual Attendance**: Sorted list of all participants with their attendance percentages
+       - **Team Summary**: Overall team statistics
+     - `attendance_report_{month}_{year}_individual.csv` - Individual attendance data in CSV format
+     - `attendance_report_{month}_{year}_team.csv` - Team summary in CSV format
 
 ## CSV Input Format
 
@@ -84,29 +86,29 @@ The input CSV file should follow Zoom's meeting details export format:
 
 ## Customization
 
-### Input File Configuration
+### Input Folder Configuration
 
-You can specify the input file in two ways:
+You can specify the input folder in two ways:
 
 1. **Using .env file (Recommended)**: Create a `.env` file and set:
    ```
-   INPUT_FILE_PATH=input/your_file_name.csv
+   INPUT_FOLDER_PATH=input/
    ```
 
-2. **Direct modification**: Edit the `input_file` variable in `main.py`:
+2. **Direct modification**: Edit the `input_folder` variable in `main.py`:
    ```python
-   input_file = os.getenv('INPUT_FILE_PATH', 'input/your_file_name.csv')
+   input_folder = os.getenv('INPUT_FOLDER_PATH', 'input/')
    ```
 
-If no `.env` file is found, the script will use the template file from `sample-input/` directory.
+If no `.env` file is found, the script defaults to the `input/` directory.
 
-### Output File Configuration
+### Batch Processing
 
-To change the output filename, edit the `output_file` variable in `main.py`:
-
-```python
-output_file = 'output/your_report_name.xlsx'
+The script automatically processes all CSV files in the input folder. Each file will generate a separate report based on its filename. The filename format should be:
 ```
+meetinglistdetails_YYYY_MM_DD_YYYY_MM_DD.csv
+```
+This will generate a report named `{month}_{year}_report/`
 
 ## Notes
 
